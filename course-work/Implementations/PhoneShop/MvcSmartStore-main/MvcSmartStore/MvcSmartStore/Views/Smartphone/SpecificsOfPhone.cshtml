@@ -1,0 +1,43 @@
+﻿@model MvcSmartStore.Models.Smartphone
+
+<div class="container mt-5">
+    <div class="card shadow-sm p-4 rounded-5" style="background-color: #f8f9fa;">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-4 text-center">
+                <img src="@Model.imgURL"
+                     alt="Smartphone image"
+                     class="img-fluid rounded-4"
+                     style="max-height: 280px; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);" />
+            </div>
+
+            <div class="col-md-8">
+                <h2 class="mb-4" style="color: #343a40; font-weight: 700;">@Model.Brand @Model.Model</h2>
+                <ul class="list-group list-group-flush mb-4" style="color: #495057; font-size: 1.1rem;">
+                    <li class="list-group-item border-0 px-0 py-1"><strong>Price:</strong> @Model.Price BGN</li>
+                    <li class="list-group-item border-0 px-0 py-1"><strong>Rating:</strong> @Model.Rating</li>
+                    <li class="list-group-item border-0 px-0 py-1"><strong>Refresh rate:</strong> @Model.Refresh_rate Hz</li>
+                    <li class="list-group-item border-0 px-0 py-1"><strong>Screen size:</strong> @Model.Screen_size"</li>
+                    <li class="list-group-item border-0 px-0 py-1"><strong>RAM:</strong> @Model.Ram GB</li>
+                    <li class="list-group-item border-0 px-0 py-1"><strong>Storage:</strong> @Model.Storage GB</li>
+                    <li class="list-group-item border-0 px-0 py-1"><strong>Processor:</strong> @Model.Processor</li>
+                    <li class="list-group-item border-0 px-0 py-1"><strong>Camera setup:</strong> @Model.Camera_setup</li>
+                </ul>
+                <a asp-controller="Order" asp-action="AddToCart" asp-route-id="@Model.Id"
+                   class="btn btn-primary btn-lg"
+                   style="background-color: #0d6efd; border: none; font-weight: 600; transition: background-color 0.3s;">
+                    Add to Cart
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-primary:hover {
+        background-color: #20c997 !important;
+    }
+
+    .list-group-item strong {
+        color: #343a40;
+    }
+</style>

@@ -1,0 +1,36 @@
+﻿@model MvcSmartStore.Models.Smartphone
+
+<h2>Delete Phone</h2>
+
+<div class="alert alert-danger">
+    <strong>Are you sure you want to delete this phone?</strong>
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Brand</th>
+        <td>@Model.Brand</td>
+    </tr>
+    <tr>
+        <th>Model</th>
+        <td>@Model.Model</td>
+    </tr>
+    <tr>
+        <th>RAM</th>
+        <td>@Model.Ram</td>
+    </tr>
+    <tr>
+        <th>Storage</th>
+        <td>@Model.Storage</td>
+    </tr>
+    <tr>
+        <th>Price (BGN)</th>
+        <td>@string.Format("{0:N2}", Model.Price)</td>
+    </tr>
+</table>
+
+<form asp-action="DeletePhoneConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Smartphones" class="btn btn-secondary ms-2">Cancel</a>
+</form>

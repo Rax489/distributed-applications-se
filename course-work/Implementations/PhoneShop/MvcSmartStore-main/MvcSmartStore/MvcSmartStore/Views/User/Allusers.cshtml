@@ -1,0 +1,36 @@
+﻿@model List<MvcSmartStore.Models.User>
+
+<h2>Manage Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Is Admin</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@(user.IsAdmin ? "Yes" : "No")</td>
+                <td>
+                    <form asp-action="ToggleAdmin" asp-controller="Admin" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button type="submit" class="btn btn-sm btn-warning me-2">Toggle Admin</button>
+                    </form>
+
+                    <form asp-action="DeleteUser" asp-controller="Admin" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to remove this user?');">Remove User</button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,79 @@
+﻿@model Tuple<List<MvcSmartStore.Models.Smartphone>, string>
+
+@{
+    var phones = Model.Item1;
+    var searchTerm = Model.Item2;
+}
+
+<h2>Phone Management</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<form method="get" asp-action="Dashboard" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="phoneSearch" class="form-control" placeholder="Search by brand or model" value="@searchTerm" />
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a href="@Url.Action("Dashboard")" class="btn btn-secondary ms-2">Reset</a>
+    </div>
+</form>
+
+<div style="max-height: 600px; overflow-y: auto;" class="custom-scrollbar">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>RAM</th>
+                <th>Storage</th>
+                <th>Price (BGN)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var phone in phones)
+            {
+                <tr>
+                    <td>@phone.Brand</td>
+                    <td>@phone.Model</td>
+                    <td>@phone.Ram</td>
+                    <td>@phone.Storage</td>
+                    <td>@string.Format("{0:N2}", phone.Price)</td>
+                    <td>
+                        <a asp-action="EditPhone" asp-route-id="@phone.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="DeletePhone" asp-route-id="@phone.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<a asp-action="AddPhone" class="btn btn-success mt-3">Add New Phone</a>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #007bff;
+        border-radius: 10px;
+    }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #0056b3;
+        }
+
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: #007bff #f1f1f1;
+    }
+</style>

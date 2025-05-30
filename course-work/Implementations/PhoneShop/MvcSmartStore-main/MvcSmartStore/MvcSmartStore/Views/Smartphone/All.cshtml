@@ -1,0 +1,150 @@
+﻿@model IEnumerable<MvcSmartStore.Models.Smartphone>
+
+@using (Html.BeginForm("All", "Smartphone", FormMethod.Get, new { @class = "row g-3 align-items-end mb-4" }))
+{
+    <div class="col-md-2">
+        <label for="brand" class="form-label fw-bold"><i class="bi bi-phone"></i> Brand</label>
+        <select id="brand" name="brand" class="form-select" aria-label="Select brand">
+            <option value="" selected>All Brands</option>
+            @foreach (var b in ViewBag.Brands as List<string>)
+            {
+                <option value="@b">@b</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <label for="minPrice" class="form-label fw-bold"><i class="bi bi-currency-dollar"></i> Price from</label>
+        <input id="minPrice" type="number" name="minPrice" class="form-control" placeholder="Min price" step="0.01" min="0" />
+    </div>
+
+    <div class="col-md-2">
+        <label for="maxPrice" class="form-label fw-bold"><i class="bi bi-currency-dollar"></i> Price to</label>
+        <input id="maxPrice" type="number" name="maxPrice" class="form-control" placeholder="Max price" step="0.01" min="0" />
+    </div>
+
+    <div class="col-md-2">
+        <label for="ram" class="form-label fw-bold"><i class="bi bi-memory"></i> RAM</label>
+        <select id="ram" name="ram" class="form-select" aria-label="Select RAM">
+            <option value="" selected>All RAMs</option>
+            @foreach (var r in ViewBag.Rams as List<int>)
+            {
+                <option value="@r">@r GB</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <label for="refresh_rate" class="form-label fw-bold"><i class="bi bi-speedometer2"></i> Refresh Rate</label>
+        <select id="refresh_rate" name="refresh_rate" class="form-select" aria-label="Select refresh rate">
+            <option value="" selected>All Rates</option>
+            @foreach (var r in ViewBag.Refresh_rate as List<int>)
+            {
+                <option value="@r">@r Hz</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <label for="storage" class="form-label fw-bold"><i class="bi bi-hdd-stack"></i> Storage</label>
+        <select id="storage" name="storage" class="form-select" aria-label="Select storage">
+            <option value="" selected>All Storages</option>
+            @foreach (var r in ViewBag.Storage as List<int>)
+            {
+                <option value="@r">@r GB</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-12 d-flex justify-content-end">
+        <button type="submit" class="btn btn-success px-4"><i class="bi bi-funnel-fill"></i> Search</button>
+    </div>
+}
+
+
+<p><strong>Results found:</strong> @Model.Count()</p>
+
+<div class="table-responsive custom-scroll" style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; border-radius: 5px;">
+    <table class="table table-hover mb-0">
+        <thead class="table-light sticky-top">
+            <tr>
+                <th>Image</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Price (BGN)</th>
+                <th>RAM (GB)</th>
+                <th>Refresh Rate (Hz)</th>
+                <th>Storage (GB)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var smartphone in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@smartphone.imgURL" alt="@smartphone.Brand @smartphone.Model" style="max-width: 80px; height: auto;" />
+                    </td>
+                    <td>@smartphone.Brand</td>
+                    <td>
+                        <a asp-controller="Smartphone" asp-action="SpecificsOfPhone" asp-route-id="@smartphone.Id">
+                            @smartphone.Model
+                        </a>
+                    </td>
+                    <td>@string.Format("{0:N2} BGN", smartphone.Price)</td>
+                    <td>@smartphone.Ram</td>
+                    <td>@smartphone.Refresh_rate</td>
+                    <td>@smartphone.Storage</td>
+                    <td>
+                        <form action="/Order/AddToCart" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@smartphone.Id" />
+                            <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<style>
+    .hover-shadow:hover {
+        box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3) !important;
+        transform: translateY(-5px);
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 5px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background: #007bff;
+        border-radius: 5px;
+    }
+
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #0056b3;
+        }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script>
+            window.onload = function () {
+                const message = '@TempData["PopupMessage"]';
+                if (message) {
+                    alert(message);
+                }
+            };
+        </script>
+    }
+}

@@ -1,0 +1,87 @@
+﻿@model MvcSmartStore.Models.Smartphone
+
+<h2>Edit Phone</h2>
+
+<form asp-controller="Admin" asp-action="EditPhoneConfirm" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Brand" class="form-label"></label>
+        <input asp-for="Brand" class="form-control" />
+        <span asp-validation-for="Brand" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Model" class="form-label"></label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Selling_platform" class="form-label"></label>
+        <input asp-for="Selling_platform" class="form-control" />
+        <span asp-validation-for="Selling_platform" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Rating" class="form-label"></label>
+        <input asp-for="Rating" class="form-control" type="number" step="0.1" />
+        <span asp-validation-for="Rating" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Refresh_rate" class="form-label"></label>
+        <input asp-for="Refresh_rate" class="form-control" />
+        <span asp-validation-for="Refresh_rate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Screen_size" class="form-label"></label>
+        <input asp-for="Screen_size" class="form-control" />
+        <span asp-validation-for="Screen_size" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Ram" class="form-label"></label>
+        <input asp-for="Ram" class="form-control" />
+        <span asp-validation-for="Ram" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Storage" class="form-label"></label>
+        <input asp-for="Storage" class="form-control" />
+        <span asp-validation-for="Storage" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Processor" class="form-label"></label>
+        <input asp-for="Processor" class="form-control" />
+        <span asp-validation-for="Processor" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Camera_setup" class="form-label"></label>
+        <input asp-for="Camera_setup" class="form-control" />
+        <span asp-validation-for="Camera_setup" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="imgURL" class="form-label"></label>
+        <input asp-for="imgURL" class="form-control" />
+        <span asp-validation-for="imgURL" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Dashboard" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
